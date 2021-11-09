@@ -27,6 +27,8 @@ namespace mnh_Proyecto.V2.Models
         [Required(ErrorMessage = "El apellido debe tener entre 3 y 30 caracteres"), MaxLength(30), MinLength(3)]
         [Display(Name = "Apellido")]
         public string Apellido { get; set; }
+
+        [EnumDataType(typeof(Especialidad))]
         public Especialidad Especialidad { get; set; }
         
         
