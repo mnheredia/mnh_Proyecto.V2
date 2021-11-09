@@ -12,7 +12,7 @@ namespace mnh_Proyecto.V2.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public TipoEstudio tipoEstudio { get; set; } //ver de cambiar el nombre de la variable, no me gusta.
+        public TipoEstudio TipoEstudio { get; set; } //ver de cambiar el nombre de la variable, no me gusta.
 
     }
 }

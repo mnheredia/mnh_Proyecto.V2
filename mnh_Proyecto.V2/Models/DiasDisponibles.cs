@@ -13,4 +13,5 @@ namespace mnh_Proyecto.V2.Models
         Jueves,
         Viernes
     }
+
 }

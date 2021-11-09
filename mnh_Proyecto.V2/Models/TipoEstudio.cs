@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace mnh_Proyecto.V2.Models
 {
-    public class TipoEstudio
+    public enum TipoEstudio
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        public String Descripcion { get; set; }
+        Laboratorio,
+        ResonanciaMagnetica,
+        Ecografía,
+        Mamografía,
+        Radiología,
+        Tomografía
         
-
     }
 }
