@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using mnh_Proyecto.V2.Context;
 
 namespace mnh_Proyecto.V2.Migrations
 {
     [DbContext(typeof(ClinicaDatabaseV2Context))]
-    partial class ClinicaDatabaseV2ContextModelSnapshot : ModelSnapshot
+    [Migration("20211109224220_mnh_Proyecto.V2.Context.ClinicaDatabaseV2Context02")]
+    partial class mnh_ProyectoV2ContextClinicaDatabaseV2Context02
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
