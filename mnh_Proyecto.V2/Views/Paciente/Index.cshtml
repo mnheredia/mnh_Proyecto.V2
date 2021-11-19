@@ -9,6 +9,17 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<br />
+<p>
+    @using (@Html.BeginForm("Index", "Paciente", FormMethod.Get))
+    {
+        <b>Filtrar Pacientes por:</b>
+        @Html.TextBox("searching", "", new { placeholder = " Apellido o Documento", @class = "form-input" }) <input type="submit" value="Search" />
+        
+        <a asp-action="Index"> | Ver todos los pacientes</a>
+    }
+</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -36,42 +47,57 @@
             <th>
                 @Html.DisplayNameFor(model => model.CorreoElectronico)
             </th>
-            <th></th>
+            <th>
+                Acciones
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Documento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaDeNacimiento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ObraSocial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NroAfiliado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CorreoElectronico)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="4" class="text-danger">
+                    No se encontraron resultados para la búsqueda realizada.
+                </td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Documento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaDeNacimiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ObraSocial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NroAfiliado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CorreoElectronico)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
 </table>

@@ -20,9 +20,14 @@ namespace mnh_Proyecto.V2.Controllers
         }
 
         // GET: Medico
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Medicos.ToListAsync());
+        //}
+
+        public async Task<IActionResult> Index(string searching)
         {
-            return View(await _context.Medicos.ToListAsync());
+            return View(await _context.Medicos.Where(x => x.Apellido.Contains(searching) || x.Matricula.ToString().Contains(searching) || searching == null).ToListAsync());
         }
 
         // GET: Medico/Details/5

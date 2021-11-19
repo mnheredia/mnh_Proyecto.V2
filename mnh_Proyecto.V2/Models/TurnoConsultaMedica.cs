@@ -9,6 +9,6 @@ namespace mnh_Proyecto.V2.Models
     public class TurnoConsultaMedica : Turno
     {
         public int IdMedico { get; set; }
-        public IEnumerable<SelectListItem> Medicos { get; set; }
+        
     }
 }

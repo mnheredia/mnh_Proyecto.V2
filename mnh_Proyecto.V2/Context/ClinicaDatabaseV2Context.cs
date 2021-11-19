@@ -30,6 +30,7 @@ namespace mnh_Proyecto.V2.Context
         public DbSet<Medico> Medicos { get; set; }
         public DbSet<Paciente> Pacientes { get; set; }
         public DbSet<Estudio> Estudios { get; set; }
+        public DbSet<mnh_Proyecto.V2.Models.TurnoConsultaMedica> TurnoConsultaMedica { get; set; }
 
         //public DbSet<Mnh_ProyectoFinal.Models.TurnoConsultaMedica> TurnoConsultaMedica { get; set; }
         //public DbSet<Mnh_ProyectoFinal.Models.TurnoPracticaMedica> TurnoPracticaMedica { get; set; }

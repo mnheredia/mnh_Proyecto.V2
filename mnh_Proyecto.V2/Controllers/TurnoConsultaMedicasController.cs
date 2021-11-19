@@ -10,34 +10,22 @@ using mnh_Proyecto.V2.Models;
 
 namespace mnh_Proyecto.V2.Controllers
 {
-    public class PacienteController : Controller
+    public class TurnoConsultaMedicasController : Controller
     {
         private readonly ClinicaDatabaseV2Context _context;
 
-        public PacienteController(ClinicaDatabaseV2Context context)
+        public TurnoConsultaMedicasController(ClinicaDatabaseV2Context context)
         {
             _context = context;
         }
 
-        // GET: Paciente
-
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.Medicos.ToListAsync());
-        //}
-        public async Task<IActionResult> Index(string searching)
+        // GET: TurnoConsultaMedicas
+        public async Task<IActionResult> Index()
         {
-            return View(await _context.Pacientes.Where(x => x.Apellido.Contains(searching) || x.Documento.ToString().Contains(searching) || searching == null).ToListAsync());
+            return View(await _context.TurnoConsultaMedica.ToListAsync());
         }
 
-        //public async Task<IActionResult> Index(int searching)
-        //{
-        //    return View(await _context.Pacientes.Where(x => x.Documento == searching).ToListAsync());
-        //}
-
-
-
-        // GET: Paciente/Details/5
+        // GET: TurnoConsultaMedicas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,39 +33,39 @@ namespace mnh_Proyecto.V2.Controllers
                 return NotFound();
             }
 
-            var paciente = await _context.Pacientes
+            var turnoConsultaMedica = await _context.TurnoConsultaMedica
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (paciente == null)
+            if (turnoConsultaMedica == null)
             {
                 return NotFound();
             }
 
-            return View(paciente);
+            return View(turnoConsultaMedica);
         }
 
-        // GET: Paciente/Create
+        // GET: TurnoConsultaMedicas/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Paciente/Create
+        // POST: TurnoConsultaMedicas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Documento,Nombre,Apellido,FechaDeNacimiento,ObraSocial,NroAfiliado,Telefono,CorreoElectronico")] Paciente paciente)
+        public async Task<IActionResult> Create([Bind("IdMedico,Id,IdPaciente,DiasDisponibles,HorasDisponibles")] TurnoConsultaMedica turnoConsultaMedica)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(paciente);
+                _context.Add(turnoConsultaMedica);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(paciente);
+            return View(turnoConsultaMedica);
         }
 
-        // GET: Paciente/Edit/5
+        // GET: TurnoConsultaMedicas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,22 +73,22 @@ namespace mnh_Proyecto.V2.Controllers
                 return NotFound();
             }
 
-            var paciente = await _context.Pacientes.FindAsync(id);
-            if (paciente == null)
+            var turnoConsultaMedica = await _context.TurnoConsultaMedica.FindAsync(id);
+            if (turnoConsultaMedica == null)
             {
                 return NotFound();
             }
-            return View(paciente);
+            return View(turnoConsultaMedica);
         }
 
-        // POST: Paciente/Edit/5
+        // POST: TurnoConsultaMedicas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Documento,Nombre,Apellido,FechaDeNacimiento,ObraSocial,NroAfiliado,Telefono,CorreoElectronico")] Paciente paciente)
+        public async Task<IActionResult> Edit(int id, [Bind("IdMedico,Id,IdPaciente,DiasDisponibles,HorasDisponibles")] TurnoConsultaMedica turnoConsultaMedica)
         {
-            if (id != paciente.Id)
+            if (id != turnoConsultaMedica.Id)
             {
                 return NotFound();
             }
@@ -109,12 +97,12 @@ namespace mnh_Proyecto.V2.Controllers
             {
                 try
                 {
-                    _context.Update(paciente);
+                    _context.Update(turnoConsultaMedica);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PacienteExists(paciente.Id))
+                    if (!TurnoConsultaMedicaExists(turnoConsultaMedica.Id))
                     {
                         return NotFound();
                     }
@@ -125,10 +113,10 @@ namespace mnh_Proyecto.V2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(paciente);
+            return View(turnoConsultaMedica);
         }
 
-        // GET: Paciente/Delete/5
+        // GET: TurnoConsultaMedicas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,30 +124,30 @@ namespace mnh_Proyecto.V2.Controllers
                 return NotFound();
             }
 
-            var paciente = await _context.Pacientes
+            var turnoConsultaMedica = await _context.TurnoConsultaMedica
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (paciente == null)
+            if (turnoConsultaMedica == null)
             {
                 return NotFound();
             }
 
-            return View(paciente);
+            return View(turnoConsultaMedica);
         }
 
-        // POST: Paciente/Delete/5
+        // POST: TurnoConsultaMedicas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var paciente = await _context.Pacientes.FindAsync(id);
-            _context.Pacientes.Remove(paciente);
+            var turnoConsultaMedica = await _context.TurnoConsultaMedica.FindAsync(id);
+            _context.TurnoConsultaMedica.Remove(turnoConsultaMedica);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PacienteExists(int id)
+        private bool TurnoConsultaMedicaExists(int id)
         {
-            return _context.Pacientes.Any(e => e.Id == id);
+            return _context.TurnoConsultaMedica.Any(e => e.Id == id);
         }
     }
 }
