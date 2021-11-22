@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using mnh_Proyecto.V2.Context;
 
 namespace mnh_Proyecto.V2.Migrations
 {
     [DbContext(typeof(ClinicaDatabaseV2Context))]
-    partial class ClinicaDatabaseV2ContextModelSnapshot : ModelSnapshot
+    [Migration("20211121234315_mnh_Proyecto.V2.Context.ClinicaDatabaseV2Context03")]
+    partial class mnh_ProyectoV2ContextClinicaDatabaseV2Context03
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,36 +136,6 @@ namespace mnh_Proyecto.V2.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TurnoConsultaMedica");
-                });
-
-            modelBuilder.Entity("mnh_Proyecto.V2.Models.TurnoPracticaMedica", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DiasDisponibles")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DocumentoPaciente")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FechaConsultaMedica")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("HorasDisponibles")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdPaciente")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdPracticaMedica")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TurnoPracticaMedica");
                 });
 #pragma warning restore 612, 618
         }

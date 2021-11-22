@@ -25,6 +25,28 @@ namespace mnh_Proyecto.V2.Models
             }
         }
 
+        public class DniExistsDB : ValidationAttribute
+        {
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                using (var context = new ClinicaDatabaseV2Context())
+                {
+                    
+                    int Dni = (int)value;
+                    Boolean documentoExists = context.Pacientes.Any(e => e.Documento == Dni);
+                    if (documentoExists) //probar usando any
+                    {
+                        return ValidationResult.Success;
+                    }
+                    else
+                    {
+                        return new ValidationResult("El paciente no está registrado en sistema. Deberá crearlo primero");
+                    }
+                }
+                
+            }
+        }
+
 
         public class MatriculaExistsAtributte : ValidationAttribute
         {

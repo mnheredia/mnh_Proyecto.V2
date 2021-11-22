@@ -20,9 +20,10 @@ namespace mnh_Proyecto.V2.Controllers
         }
 
         // GET: TurnoConsultaMedicas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searching)
         {
-            return View(await _context.TurnoConsultaMedica.ToListAsync());
+            return View(await _context.TurnoConsultaMedica.Where(x => x.DocumentoPaciente.ToString().Contains(searching) || searching == null).ToListAsync());
+            //return View(await _context.TurnoConsultaMedica.ToListAsync());
         }
 
         // GET: TurnoConsultaMedicas/Details/5
@@ -46,6 +47,19 @@ namespace mnh_Proyecto.V2.Controllers
         // GET: TurnoConsultaMedicas/Create
         public IActionResult Create()
         {
+            List<SelectListItem> MedicosItems = new List<SelectListItem>();
+            foreach (Medico m in _context.Medicos)
+            {
+                MedicosItems.Add(new SelectListItem()
+                {
+                    Text = m.Nombre.ToString() +" "+m.Apellido.ToString()+ " -    Especialidad: " + m.Especialidad.ToString(),
+
+                    Value = m.Id.ToString(),
+                    Selected = false
+                });
+            }
+            ViewBag.MedicosItems = MedicosItems;
+
             return View();
         }
 
@@ -54,10 +68,48 @@ namespace mnh_Proyecto.V2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdMedico,Id,IdPaciente,DiasDisponibles,HorasDisponibles")] TurnoConsultaMedica turnoConsultaMedica)
+        public async Task<IActionResult> Create([Bind("IdMedico,FechaConsultaMedica,DocumentoPaciente,Id,IdPaciente,DiasDisponibles,HorasDisponibles")] TurnoConsultaMedica turnoConsultaMedica)
         {
+
             if (ModelState.IsValid)
             {
+                DateTime date = DateTime.Today;
+
+                switch (turnoConsultaMedica.DiasDisponibles)
+                {
+                    case DiasDisponibles.Lunes:
+                        turnoConsultaMedica.FechaConsultaMedica = date.AddDays(7).ToString("dd/MM/yyyy") + " " + (int)turnoConsultaMedica.HorasDisponibles + ":00";
+                        break;
+                    case DiasDisponibles.Martes:
+                        turnoConsultaMedica.FechaConsultaMedica = date.AddDays(8).ToString("dd/MM/yyyy") + " " + (int)turnoConsultaMedica.HorasDisponibles + ":00";
+                        break;
+                    case DiasDisponibles.Miercoles:
+                        turnoConsultaMedica.FechaConsultaMedica = date.AddDays(9).ToString("dd/MM/yyyy") + " " + (int)turnoConsultaMedica.HorasDisponibles + ":00";
+                        break;
+                    case DiasDisponibles.Jueves:
+                        turnoConsultaMedica.FechaConsultaMedica = date.AddDays(10).ToString("dd/MM/yyyy") + " " + (int)turnoConsultaMedica.HorasDisponibles + ":00";
+                        break;
+                    case DiasDisponibles.Viernes:
+                        turnoConsultaMedica.FechaConsultaMedica = date.AddDays(11).ToString("dd/MM/yyyy") + " " + (int)turnoConsultaMedica.HorasDisponibles + ":00";
+                        break;
+                }
+                foreach (TurnoConsultaMedica tcm in _context.TurnoConsultaMedica.Where(s => s.FechaConsultaMedica.Equals(turnoConsultaMedica.FechaConsultaMedica)))
+                {
+
+                    if (tcm.IdMedico == turnoConsultaMedica.IdMedico)
+                    {
+                        return Content("EL MEDICO  YA TIENE UN TURNO ASIGNADO EN ESA FECHA Y HORA");
+                    }
+                    else if (tcm.DocumentoPaciente == turnoConsultaMedica.DocumentoPaciente)
+                    {
+                        return Content("EL PACIENTE YA TIENE UN TURNO ASIGNADO EN ESA FECHA Y HORA");
+                    }
+                }
+                foreach(Paciente p in _context.Pacientes.Where(s=> s.Documento == turnoConsultaMedica.DocumentoPaciente)){
+                    turnoConsultaMedica.IdPaciente = p.Id;
+                }
+                
+
                 _context.Add(turnoConsultaMedica);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +138,7 @@ namespace mnh_Proyecto.V2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdMedico,Id,IdPaciente,DiasDisponibles,HorasDisponibles")] TurnoConsultaMedica turnoConsultaMedica)
+        public async Task<IActionResult> Edit(int id, [Bind("IdMedico,FechaConsultaMedica,DocumentoPaciente,Id,IdPaciente,DiasDisponibles,HorasDisponibles")] TurnoConsultaMedica turnoConsultaMedica)
         {
             if (id != turnoConsultaMedica.Id)
             {

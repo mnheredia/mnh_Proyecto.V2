@@ -22,5 +22,8 @@ namespace mnh_Proyecto.V2.Models
 
         //voy a empezar a hacer la lógica de la creación de turno primero desde una especialidad hasta el médico
         //mapear a la bbdd
+
+       
     }
+    
 }

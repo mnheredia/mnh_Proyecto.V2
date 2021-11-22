@@ -1,4 +1,4 @@
-﻿@model IEnumerable<mnh_Proyecto.V2.Models.TurnoConsultaMedica>
+﻿@model IEnumerable<mnh_Proyecto.V2.Models.TurnoPracticaMedica>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,7 +10,7 @@
     <a asp-action="Create">Create New</a>
 </p>
 <p>
-    @using (@Html.BeginForm("Index", "TurnoConsultaMedicas", FormMethod.Get))
+    @using (@Html.BeginForm("Index", "TurnoPracticaMedicas", FormMethod.Get))
     {
         <b>Filtrar Turnos por:</b>
         @Html.TextBox("searching", "", new { placeholder = " Documento Paciente", @class = "form-input" }) <input type="submit" value="Search" />
@@ -22,7 +22,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdMedico)
+                @Html.DisplayNameFor(model => model.IdPracticaMedica)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FechaConsultaMedica)
@@ -57,7 +57,7 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.IdMedico)
+                        @Html.DisplayFor(modelItem => item.IdPracticaMedica)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.FechaConsultaMedica)
