@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using static mnh_Proyecto.V2.Models.Validations;
@@ -18,6 +19,9 @@ namespace mnh_Proyecto.V2.Models
         //[RegularExpression("^[0-9]+$", ErrorMessage = "El documento solo debe contener números")]
         [DniExistsDB]
         public int DocumentoPaciente { get; set; }
+
+        [NotMapped]
+        public IEnumerable<SelectListItem> MedicosItems { get; set; }
 
     }
 }

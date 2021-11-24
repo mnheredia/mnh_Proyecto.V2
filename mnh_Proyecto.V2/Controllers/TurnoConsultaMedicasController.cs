@@ -73,6 +73,7 @@ namespace mnh_Proyecto.V2.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 DateTime date = DateTime.Today;
 
                 switch (turnoConsultaMedica.DiasDisponibles)
@@ -108,12 +109,26 @@ namespace mnh_Proyecto.V2.Controllers
                 foreach(Paciente p in _context.Pacientes.Where(s=> s.Documento == turnoConsultaMedica.DocumentoPaciente)){
                     turnoConsultaMedica.IdPaciente = p.Id;
                 }
-                
+
+
+               
 
                 _context.Add(turnoConsultaMedica);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            List<SelectListItem> MedicosItems = new List<SelectListItem>();
+            foreach (Medico m in _context.Medicos)
+            {
+                MedicosItems.Add(new SelectListItem()
+                {
+                    Text = m.Nombre.ToString() + " " + m.Apellido.ToString() + " -    Especialidad: " + m.Especialidad.ToString(),
+
+                    Value = m.Id.ToString(),
+                    Selected = false
+                });
+            }
+            ViewBag.MedicosItems = MedicosItems;
             return View(turnoConsultaMedica);
         }
 
