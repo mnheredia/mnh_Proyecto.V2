@@ -3,7 +3,13 @@
 @{
     ViewData["Title"] = "Create";
 }
-
+@if (ViewBag.EsValido)
+{
+    <div class="alert alert-warning alert-danger fade show" role="alert">
+        <strong>Atención! @TempData["AlertMessage"]</strong>
+        @*<button type="button" class="btn-close" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" .alert-dismissible></button>*@
+    </div>}
 <h1>Create</h1>
 
 <h4>TurnoPracticaMedica</h4>

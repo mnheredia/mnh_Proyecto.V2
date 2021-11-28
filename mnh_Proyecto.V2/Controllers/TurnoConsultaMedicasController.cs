@@ -20,9 +20,28 @@ namespace mnh_Proyecto.V2.Controllers
         }
 
         // GET: TurnoConsultaMedicas
-        public async Task<IActionResult> Index(string searching)
+        public async Task<IActionResult> Index(string searching = "", int pg = 1)
         {
-            return View(await _context.TurnoConsultaMedica.Where(x => x.DocumentoPaciente.ToString().Contains(searching) || searching == null).ToListAsync());
+
+            var data2 = _context.TurnoConsultaMedica.ToList();
+            if (!string.IsNullOrEmpty(searching))
+            {
+                data2 = (await _context.TurnoConsultaMedica.Where(x => x.DocumentoPaciente.ToString().Contains(searching) || searching == null).ToListAsync());
+
+            }
+            const int pageSize = 3;
+            if (pg < 1)
+            {
+                pg = 1;
+            }
+            int recsCount = data2.Count();
+            var paginado = new Paginado(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            data2 = data2.Skip(recSkip).Take(paginado.PageSize).ToList();
+            ViewBag.Paginado = paginado;
+            ViewBag.CurrentSearching = searching;
+            return View(data2);
+
             //return View(await _context.TurnoConsultaMedica.ToListAsync());
         }
 
@@ -45,7 +64,7 @@ namespace mnh_Proyecto.V2.Controllers
         }
 
         // GET: TurnoConsultaMedicas/Create
-        public IActionResult Create()
+        public IActionResult Create(bool esValido = false)
         {
             List<SelectListItem> MedicosItems = new List<SelectListItem>();
             foreach (Medico m in _context.Medicos)
@@ -59,6 +78,7 @@ namespace mnh_Proyecto.V2.Controllers
                 });
             }
             ViewBag.MedicosItems = MedicosItems;
+            ViewBag.EsValido = esValido;
 
             return View();
         }
@@ -99,11 +119,17 @@ namespace mnh_Proyecto.V2.Controllers
 
                     if (tcm.IdMedico == turnoConsultaMedica.IdMedico)
                     {
-                        return Content("EL MEDICO  YA TIENE UN TURNO ASIGNADO EN ESA FECHA Y HORA");
+                        TempData["AlertMessage"] = "El médico ya tiene un turno asignado en esa fecha y hora.";
+
+                        return RedirectToAction("Create", new { esValido = true });
+                        //return Content("EL MEDICO  YA TIENE UN TURNO ASIGNADO EN ESA FECHA Y HORA");
                     }
                     else if (tcm.DocumentoPaciente == turnoConsultaMedica.DocumentoPaciente)
                     {
-                        return Content("EL PACIENTE YA TIENE UN TURNO ASIGNADO EN ESA FECHA Y HORA");
+                        TempData["AlertMessage"] = "El paciente ya tiene un turno asignado en esa fecha y hora.";
+                        //return Content("EL PACIENTE YA TIENE UN TURNO ASIGNADO EN ESA FECHA Y HORA");
+                        return RedirectToAction("Create", new { esValido = true });
+
                     }
                 }
                 foreach(Paciente p in _context.Pacientes.Where(s=> s.Documento == turnoConsultaMedica.DocumentoPaciente)){

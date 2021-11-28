@@ -2,6 +2,16 @@
 
 @{
     ViewData["Title"] = "Index";
+    Paginado paginado = new Paginado();
+    int pagNro = 0;
+
+    if (ViewBag.Paginado != null)
+    {
+        paginado = ViewBag.Paginado;
+        pagNro = paginado.CurrentPage;
+    }
+
+    string currentSearching = ViewBag.CurrentSearching;
 }
 
 <h1>Index</h1>
@@ -84,3 +94,30 @@
         }
         </tbody>
 </table>
+<div class="container">
+
+    @if (paginado.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+            @if (paginado.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="TurnoConsultaMedicas" asp-action="Index" asp-route-searching="@(currentSearching)" asp-route-pg="1">Primero</a>
+                    <a class="page-link" asp-controller="TurnoConsultaMedicas" asp-action="Index" asp-route-searching="@(currentSearching)" asp-route-pg="@(paginado.CurrentPage-1)">Anterior</a>
+                </li>
+            }
+            @for (var pag = paginado.StartPage; pag <= paginado.EndPage; pag++)
+            {
+                <li class="page-item @(pag==paginado.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-controller="TurnoConsultaMedicas" asp-action="Index" asp-route-searching="@(currentSearching)" asp-route-pg="@pag">@pag</a>
+                </li>
+            }
+            @if (paginado.CurrentPage < paginado.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="TurnoConsultaMedicas" asp-action="Index" asp-route-searching="@(currentSearching)" asp-route-pg="@(paginado.CurrentPage+1)">Siguiente</a>
+                    <a class="page-link" asp-controller="TurnoConsultaMedicas" asp-action="Index" asp-route-searching="@(currentSearching)" asp-route-pg="@(paginado.TotalPages)">Ultimo</a>
+                </li>
+            }
+        </ul>}
+</div>

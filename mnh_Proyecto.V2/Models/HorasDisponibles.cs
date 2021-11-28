@@ -9,7 +9,7 @@ namespace mnh_Proyecto.V2.Models
     public enum HorasDisponibles
     {
         [Display(Name = "08:00")]
-        Ocho,
+        Ocho=8,
         [Display(Name = "09:00")]
         Nueve,
         [Display(Name = "10:00")]
