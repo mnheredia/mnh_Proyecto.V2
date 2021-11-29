@@ -17,7 +17,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-outline-primary ">Crear un nuevo paciente</a>
 </p>
 <br />
 <p>
@@ -26,12 +26,12 @@
         <b>Filtrar Pacientes por:</b>
         @Html.TextBox("searching", "", new { placeholder = " Apellido o Documento", @class = "form-input" }) <input type="submit" value="Search" />
 
-        <a asp-action="Index"> | Ver todos los pacientes</a>
+                                                                                                             <a asp-action="Index" class="btn btn-outline-secondary">Ver todos los pacientes</a>
     }
 </p>
 
-<table class="table">
-    <thead>
+<table class="table table-hover table-bordered">
+    <thead class="table-success">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Documento)
@@ -102,9 +102,9 @@
                         @Html.DisplayFor(modelItem => item.CorreoElectronico)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn-outline-primary btn-sm btn ">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn-outline-primary btn-sm btn ">Detalles</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn-outline-danger btn-sm btn ">Eliminar</a>
                     </td>
                 </tr>
             }

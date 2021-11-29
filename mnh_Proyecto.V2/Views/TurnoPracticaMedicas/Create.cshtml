@@ -25,7 +25,7 @@
                 @Html.LabelFor(m => m.IdPracticaMedica)
                 @*<label asp-for="Especialidad" class="control-label"></label>*@
                 <select asp-for="IdPracticaMedica" class="form-control" asp-items="Html.GetEnumSelectList<TipoEstudio>()">
-                    <option selected="selected" value="">Please select</option>
+                    <option selected="selected" value="">Por favor seleccione</option>
                 </select>
 
                 @*<label asp-for="IdPracticaMedica" class="control-label"></label>
@@ -51,23 +51,26 @@
                     <input asp-for="IdPaciente" class="form-control" />
                     <span asp-validation-for="IdPaciente" class="text-danger"></span>
                 </div>*@
-            <div class="form-group">
-                <label asp-for="DiasDisponibles" class="control-label"></label>
-                <select asp-for="DiasDisponibles" class="form-control" asp-items="Html.GetEnumSelectList<DiasDisponibles>()"></select>
-                <span asp-validation-for="DiasDisponibles" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="DiasDisponibles" class="control-label"></label>
+            <select asp-for="DiasDisponibles" class="form-control" asp-items="Html.GetEnumSelectList<DiasDisponibles>()"> <option selected="selected" value="">Por favor seleccione</option></select>
+            
+            
+            <span asp-validation-for="DiasDisponibles" class="text-danger"></span>
+        </div>
             <div class="form-group">
                 <label asp-for="HorasDisponibles" class="control-label"></label>
-                <select asp-for="HorasDisponibles" class="form-control" asp-items="Html.GetEnumSelectList<HorasDisponibles>()"></select>
+                <select asp-for="HorasDisponibles" class="form-control" asp-items="Html.GetEnumSelectList<HorasDisponibles>()" > <option selected="selected" value="">Por favor seleccione</option></select>
                 <span asp-validation-for="HorasDisponibles" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

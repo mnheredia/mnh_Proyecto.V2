@@ -17,19 +17,20 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-outline-primary ">Crear un nuevo turno</a>
 </p>
+<br />
 <p>
     @using (@Html.BeginForm("Index", "TurnoConsultaMedicas", FormMethod.Get))
     {
         <b>Filtrar Turnos por:</b>
         @Html.TextBox("searching", "", new { placeholder = " Documento Paciente", @class = "form-input" }) <input type="submit" value="Search" />
 
-        <a asp-action="Index"> | Ver todos los turnos</a>
+                                                                                                           <a asp-action="Index" class="btn btn-outline-secondary">Ver todos los turnos</a>
     }
 </p>
-<table class="table">
-    <thead>
+<table class="table table-hover table-bordered">
+    <thead class="table-success">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.IdMedico)
@@ -85,14 +86,14 @@
                         @Html.DisplayFor(modelItem => item.HorasDisponibles)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn-outline-primary btn-sm btn ">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn-outline-primary btn-sm btn ">Detalles</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn-outline-danger btn-sm btn ">Eliminar</a> 
                     </td>
                 </tr>
             }
         }
-        </tbody>
+    </tbody>
 </table>
 <div class="container">
 
