@@ -137,8 +137,8 @@ namespace mnh_Proyecto.V2.Controllers
                 }
 
 
-               
 
+                
                 _context.Add(turnoConsultaMedica);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

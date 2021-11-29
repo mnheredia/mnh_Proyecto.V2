@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Create";
 }
-@if (ViewBag.EsValido)
+@if (ViewBag.EsValido == true)
 {
     <div class="alert alert-warning alert-danger fade show" role="alert">
         <strong>Atención! @TempData["AlertMessage"]</strong>
