@@ -22,7 +22,7 @@
                         <li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action=""></a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -52,11 +52,81 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - mnh_Proyecto.V2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    @*<footer class="border-top footer text-muted">
+
+            <div class="container">
+                <img src="~/images/527-5275271_naturopathy-services-health-medicine-herbalism-pharmacy-herbal-medicine.png" alt="Avatar Logo" style="width:60px;" class="rounded-pill img-fluid">
+                &copy; 2021 - mnh_Proyecto.V2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+                <a asp-area="" asp-controller="Home" asp-action="">Sobre Nosotros</a>
+
+            </div>
+
+        </footer>*@
+    <!-- Remove the container if you want to extend the Footer to full width. -->
+
+    <br />
+    <br />
+    <br />
+    <footer class="bg-success">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <h5 class="mb-3" style="letter-spacing: 2px; color: ghostwhite;"><strong>Clínica Heredia</strong></h5>
+                    <p style="color: ghostwhite;">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+                        molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+                        voluptatem veniam, est atque cumque eum delectus sint!
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-3" style="letter-spacing: 2px; color: ghostwhite;"><strong>Enlaces</strong></h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-1">
+                            @*<a href="#!" style="color: black;">Frequently Asked Questions</a>*@
+                            <a style="color: black;" asp-area="" asp-controller="Paciente" asp-action="Index">Pacientes</a>
+                        </li>
+                        <li class="mb-1">
+                            @*<a href="#!" style="color: black;">Delivery</a>*@
+                            <a style="color: black;" asp-area="" asp-controller="Medico" asp-action="Index">Medicos</a>
+                        </li>
+                        <li class="mb-1">
+                            @*<a href="#!" style="color: black;">Pricing</a>*@
+                            <a style="color: black;" asp-area="" asp-controller="TurnoConsultaMedicas" asp-action="Index">Consulta Médica</a>
+                        </li>
+                        <li>
+                            @*<a href="#!" style="color: black;">Where we deliver?</a>*@
+                            <a style="color: black;" asp-area="" asp-controller="TurnoPracticaMedicas" asp-action="Index">Práctica Médica</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-1" style="letter-spacing: 2px; color: ghostwhite;"><strong>Horarios de Atención</strong></h5>
+                    <table class="table" style="color: ghostwhite; border-color: ActiveBorder;">
+                        <tbody>
+                            <tr>
+                                <td>Lunes - Viernes:</td>
+                                <td>8am - 9pm</td>
+                            </tr>
+                            <tr>
+                                <td>Sábado - Domingo:</td>
+                                <td>8am - 1am</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 Copyright:
+            @*<a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>*@
+            <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Index">Clínica Heredia</a>
+        </div>
+        <!-- Copyright -->
     </footer>
+
+
+    <!-- End of .container -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
