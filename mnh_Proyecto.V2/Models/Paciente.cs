@@ -41,6 +41,7 @@ namespace mnh_Proyecto.V2.Models
 
         [ValidDateAtributte]
         [Required(ErrorMessage = "El campo no puede quedar vacío")]
+        [Display(Name = "Fecha de nacimiento")]
         public DateTime FechaDeNacimiento { get; set; }
 
 
@@ -57,6 +58,7 @@ namespace mnh_Proyecto.V2.Models
         [Range(90000, 1000000000000, ErrorMessage = "El número de afiliado debe tener entre 6 y 12 caracteres.")]
         [RegularExpression("^[0-9]+$", ErrorMessage = "El número de afiliado/a solo debe contener números")]//CORREGIR ACÁ, QUE SOLO SEAN N'ROS
         //[RegularExpression(("([1-9][0-9]*)"), ErrorMessage = "Please enter valid Number")]
+        [Display(Name = "Nro Afiliado")]
         public int NroAfiliado { get; set; }
 
         [DataType(DataType.PhoneNumber)]
@@ -68,6 +70,7 @@ namespace mnh_Proyecto.V2.Models
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "El campo no puede quedar vacío")]
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "El Email no es válido.")]
+        [Display(Name = "Correo Electrónico")]
         public string CorreoElectronico { get; set; }
 
     }
