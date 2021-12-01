@@ -115,7 +115,19 @@ namespace mnh_Proyecto.V2.Controllers
                         return RedirectToAction("Create", new { esValido = true });
                     }
                 }
-                foreach (Paciente p in _context.Pacientes.Where(s => s.Documento == turnoPracticaMedica.DocumentoPaciente))
+                foreach (TurnoConsultaMedica tcm in _context.TurnoConsultaMedica.Where(s => s.FechaConsultaMedica.Equals(turnoPracticaMedica.FechaConsultaMedica)))
+                {
+
+                    if (tcm.DocumentoPaciente == turnoPracticaMedica.DocumentoPaciente)
+                    {
+                        TempData["AlertMessage"] = "El paciente ya tiene un turno para una consulta médica asignado en esa fecha y hora.";
+
+                        return RedirectToAction("Create", new { esValido = true });
+                        //return Content("EL MEDICO  YA TIENE UN TURNO ASIGNADO EN ESA FECHA Y HORA");
+                    }
+                }
+
+                    foreach (Paciente p in _context.Pacientes.Where(s => s.Documento == turnoPracticaMedica.DocumentoPaciente))
                 {
                     turnoPracticaMedica.IdPaciente = p.Id;
                 }
