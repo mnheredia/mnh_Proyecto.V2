@@ -10,10 +10,21 @@
         @*<button type="button" class="btn-close" aria-label="Close"></button>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" .alert-dismissible></button>*@
     </div>}
-<h1>Create</h1>
-
-<h4>TurnoPracticaMedica</h4>
+<section class="py-0 text-white">
+    <div class="container py-4 bg-success bg-gradient">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1>Prácticas Médicas</h1>
+                <p class="lead mb-0"><i>Sistema de gestión administrativa</i></p>
+            </div>
+        </div>
+    </div>
+</section>
 <br />
+
+
+<h4>Alta de Práctica Médica</h4>
+<hr />
 <h6 class="text-success">IMPORTANTE: La agenda de turnos se abre los lunes de cada semana, se agendan con un rango de semana a semana.</h6>
 <hr />
 
@@ -51,16 +62,16 @@
                     <input asp-for="IdPaciente" class="form-control" />
                     <span asp-validation-for="IdPaciente" class="text-danger"></span>
                 </div>*@
-        <div class="form-group">
-            <label asp-for="DiasDisponibles" class="control-label"></label>
-            <select asp-for="DiasDisponibles" class="form-control" asp-items="Html.GetEnumSelectList<DiasDisponibles>()"> <option selected="selected" value="">Por favor seleccione</option></select>
-            
-            
-            <span asp-validation-for="DiasDisponibles" class="text-danger"></span>
-        </div>
+            <div class="form-group">
+                <label asp-for="DiasDisponibles" class="control-label"></label>
+                <select asp-for="DiasDisponibles" class="form-control" asp-items="Html.GetEnumSelectList<DiasDisponibles>()"> <option selected="selected" value="">Por favor seleccione</option></select>
+
+
+                <span asp-validation-for="DiasDisponibles" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="HorasDisponibles" class="control-label"></label>
-                <select asp-for="HorasDisponibles" class="form-control" asp-items="Html.GetEnumSelectList<HorasDisponibles>()" > <option selected="selected" value="">Por favor seleccione</option></select>
+                <select asp-for="HorasDisponibles" class="form-control" asp-items="Html.GetEnumSelectList<HorasDisponibles>()"> <option selected="selected" value="">Por favor seleccione</option></select>
                 <span asp-validation-for="HorasDisponibles" class="text-danger"></span>
             </div>
             <br />
