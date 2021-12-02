@@ -14,7 +14,19 @@
     string currentSearching = ViewBag.CurrentSearching;
 }
 
-<h1>Pacientes</h1>
+<section class="py-0 text-white">
+    <div class="container py-4 bg-success bg-gradient">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1>Pacientes</h1>
+                <p class="lead mb-0"><i>Sistema de gestión administrativa</i></p>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+
+
 
 <p>
     <a asp-action="Create" class="btn btn-outline-primary ">Crear un nuevo paciente</a>
@@ -26,7 +38,7 @@
         <b>Filtrar Pacientes por:</b>
         @Html.TextBox("searching", "", new { placeholder = " Apellido o Documento", @class = "form-input" }) <input type="submit" value="Search" />
 
-                                                                                                             <a asp-action="Index" class="btn btn-outline-secondary">Ver todos los pacientes</a>
+      <a asp-action="Index" class="btn btn-outline-secondary">Ver todos los pacientes</a>
     }
 </p>
 
@@ -102,9 +114,21 @@
                         @Html.DisplayFor(modelItem => item.CorreoElectronico)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn-outline-primary btn-sm btn ">Editar</a> |
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn-outline-warning btn-sm btn "title="Editar"> 
+                            <i class="fas fa-edit"></i>
+                         </a> |
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn-outline-info btn-sm btn " title="Detalles">
+                            <i class="fas fa-info-circle"></i>
+                            </a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn-outline-danger btn-sm btn " title="Eliminar">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+
+
+
+                        @*<a asp-action="Edit" asp-route-id="@item.Id" class="btn-outline-primary btn-sm btn ">Editar </a> |
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn-outline-primary btn-sm btn ">Detalles</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn-outline-danger btn-sm btn ">Eliminar</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn-outline-danger btn-sm btn ">Eliminar</a>*@
                     </td>
                 </tr>
             }
