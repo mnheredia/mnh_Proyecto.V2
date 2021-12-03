@@ -140,7 +140,7 @@ namespace mnh_Proyecto.V2.Controllers
         }
 
         // GET: TurnoPracticaMedicas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, bool esValido = false)
         {
             if (id == null)
             {
@@ -152,6 +152,7 @@ namespace mnh_Proyecto.V2.Controllers
             {
                 return NotFound();
             }
+            ViewBag.EsValido = esValido;
             return View(turnoPracticaMedica);
         }
 
@@ -171,6 +172,58 @@ namespace mnh_Proyecto.V2.Controllers
             {
                 try
                 {
+                    DateTime date = DateTime.Today;
+
+                    switch (turnoPracticaMedica.DiasDisponibles)
+                    {
+                        case DiasDisponibles.Lunes:
+                            turnoPracticaMedica.FechaConsultaMedica = date.AddDays(7).ToString("dd/MM/yyyy") + " " + (int)turnoPracticaMedica.HorasDisponibles + ":00";
+                            break;
+                        case DiasDisponibles.Martes:
+                            turnoPracticaMedica.FechaConsultaMedica = date.AddDays(8).ToString("dd/MM/yyyy") + " " + (int)turnoPracticaMedica.HorasDisponibles + ":00";
+                            break;
+                        case DiasDisponibles.Miercoles:
+                            turnoPracticaMedica.FechaConsultaMedica = date.AddDays(9).ToString("dd/MM/yyyy") + " " + (int)turnoPracticaMedica.HorasDisponibles + ":00";
+                            break;
+                        case DiasDisponibles.Jueves:
+                            turnoPracticaMedica.FechaConsultaMedica = date.AddDays(10).ToString("dd/MM/yyyy") + " " + (int)turnoPracticaMedica.HorasDisponibles + ":00";
+                            break;
+                        case DiasDisponibles.Viernes:
+                            turnoPracticaMedica.FechaConsultaMedica = date.AddDays(11).ToString("dd/MM/yyyy") + " " + (int)turnoPracticaMedica.HorasDisponibles + ":00";
+                            break;
+                    }
+                    foreach (TurnoPracticaMedica tpm in _context.TurnoPracticaMedica.Where(s => s.FechaConsultaMedica.Equals(turnoPracticaMedica.FechaConsultaMedica)))
+                    {
+
+                        if (tpm.IdPracticaMedica == turnoPracticaMedica.IdPracticaMedica)
+                        {
+                            TempData["AlertMessage"] = "El estudio ya tiene un turno asignado en esa fecha y hora.";
+
+                            return RedirectToAction("Create", new { esValido = true });
+                        }
+                        else if (tpm.DocumentoPaciente == turnoPracticaMedica.DocumentoPaciente)
+                        {
+                            TempData["AlertMessage"] = "El paciente ya tiene un turno asignado en esa fecha y hora.";
+                            //return Content("EL PACIENTE YA TIENE UN TURNO ASIGNADO EN ESA FECHA Y HORA");
+                            return RedirectToAction("Create", new { esValido = true });
+                        }
+                    }
+                    foreach (TurnoConsultaMedica tcm in _context.TurnoConsultaMedica.Where(s => s.FechaConsultaMedica.Equals(turnoPracticaMedica.FechaConsultaMedica)))
+                    {
+
+                        if (tcm.DocumentoPaciente == turnoPracticaMedica.DocumentoPaciente)
+                        {
+                            TempData["AlertMessage"] = "El paciente ya tiene un turno para una consulta médica asignado en esa fecha y hora.";
+
+                            return RedirectToAction("Create", new { esValido = true });
+                            //return Content("EL MEDICO  YA TIENE UN TURNO ASIGNADO EN ESA FECHA Y HORA");
+                        }
+                    }
+
+                    foreach (Paciente p in _context.Pacientes.Where(s => s.Documento == turnoPracticaMedica.DocumentoPaciente))
+                    {
+                        turnoPracticaMedica.IdPaciente = p.Id;
+                    }
                     _context.Update(turnoPracticaMedica);
                     await _context.SaveChangesAsync();
                 }
